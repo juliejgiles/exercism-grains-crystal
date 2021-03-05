@@ -1,19 +1,11 @@
-
-class Grains 
-  def self.square(grains)
-    if grains < 1 || grains > 64
-        begin
-            raise ArgumentError.new
-        #   rescue ArgumentError    #Tests don't allow error to be rescue
-        end
-    else
-        2**(grains-1)  
-    end
+class Grains
+  def self.square(grain : Number) : Int128
+    raise ArgumentError.new("grain must be between 1 and 64 inclusive") unless grain.in?(1..64)
+    2_i128**(grain - 1)
   end
 
-  def self.total
-    sum = 0
-    (1..64).each { |number| sum += 2**number }
-    
-  end
+  # This is called a lazy getter.
+  # The getter/property is nil until called and then returns the result
+  # of the first call to the block for all future calls.
+  class_getter total : Int128 { (0...64).sum { |number| 2_i128**number } }
 end
