@@ -1,5 +1,5 @@
 name: grains-exercism-challenge
-on: [push, pull request]
+on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
